@@ -1,0 +1,36 @@
+<script src="/socket.io/socket.io.js"></script>
+<script src="dist.js"></script>
+<script>
+	var socket = io()
+
+	var requestTimestamps = {}
+	var seq = 0
+
+	setInterval(function () {
+		console.log(`ping #${seq}`)
+		var time = Date.now()
+		requestTimestamps[seq] = time
+		socket.emit('pingee', {
+			id: seq++,
+			client_time: time
+		})
+	}, 1000)
+
+	socket.on('pongee', function (data) {
+		var diff = Date.now() - requestTimestamps[data.id]
+		var server_diff = data.server_time - requestTimestamps[data.id]
+
+		delete requestTimestamps[data.id]
+		console.log(`#${data.id} responded in ${diff}ms, one-trip time ${server_diff}ms`)
+	})
+
+	socket.on('welcome', function (message) {
+		console.log(`message from the server: ${message}`)
+	})
+</script>
+
+<body>
+	<h1>ping</h1>
+	<div class="messages">
+	</div>
+</body>
