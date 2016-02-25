@@ -1,36 +1,35 @@
-<script src="/socket.io/socket.io.js"></script>
-<script src="dist.js"></script>
-<script>
-	var socket = io()
-
-	var requestTimestamps = {}
-	var seq = 0
-
-	setInterval(function () {
-		console.log(`ping #${seq}`)
-		var time = Date.now()
-		requestTimestamps[seq] = time
-		socket.emit('pingee', {
-			id: seq++,
-			client_time: time
-		})
-	}, 1000)
-
-	socket.on('pongee', function (data) {
-		var diff = Date.now() - requestTimestamps[data.id]
-		var server_diff = data.server_time - requestTimestamps[data.id]
-
-		delete requestTimestamps[data.id]
-		console.log(`#${data.id} responded in ${diff}ms, one-trip time ${server_diff}ms`)
-	})
-
-	socket.on('welcome', function (message) {
-		console.log(`message from the server: ${message}`)
-	})
-</script>
-
+<html>
+	<head>
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
+	<script src="dist.js"></script>
 <body>
-	<h1>ping</h1>
-	<div class="messages">
+	<div class="wrapper">
+		<div class="game-wrapper">
+			<canvas id="game" width="800" height="600"></canvas>
+		</div>
+		<div class="dashboard">
+			<h1 class="heading">lines</h1>
+			<h2>Scores</h2>
+			<ul class="scores">
+				<li class="red"><b>Player 1:</b> 133</li>
+				<li class="green"><b>Player 2:</b> 80</li>
+				<li class="blue dead"><b>Player 3:</b> 10</li>
+			</ul>
+
+			<h2>Help</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
 	</div>
+	<script>
+		var canvas = document.getElementById('game')
+		var game = Game(canvas)
+		game.start()
+	</script>
 </body>
+</html>

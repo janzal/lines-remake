@@ -1,0 +1,59 @@
+@import url(https://fonts.googleapis.com/css?family=VT323);
+
+body {
+	background-color: #000;
+	color: #fff;
+	font-family: 'VT323', 'Courier New';
+}
+
+.wrapper {
+	margin: 0 auto 0 auto;
+	border: 1px solid white;
+	padding: 10px;
+	display: flex;
+	width: 1100px;
+	height: 620px;
+}
+
+.heading {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+.dashboard {
+	padding: 10px;
+	border: 1px solid #fff;
+	margin-left: 10px;
+}
+
+.scores {
+	margin: 0;
+	padding: 10px;
+	border: 1px solid #fff;
+}
+
+.scores li {
+	list-style-type: none;
+}
+
+.scores .red {
+	color: red;
+}
+
+.scores .green {
+	color: green;
+}
+
+.scores .blue {
+	color: blue;
+}
+
+.scores .dead {
+	color: gray;
+	text-decoration: line-through;
+}
+
+.game-wrapper {
+	border: 1px solid blue;
+}
